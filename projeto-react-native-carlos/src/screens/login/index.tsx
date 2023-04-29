@@ -2,19 +2,27 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
 import * as Yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { NavegacaoPrincipalParams } from '../navigations';
 
 export interface loginProps{}
 
 export function Login(props: loginProps) {
 
+  type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Login">;
+  const navigation = useNavigation<navProp>();
+
   const [ resultado, setResultado ] = useState<null|'logou'|'falhou'>(null);
   
   const handleLogin = async ({email, senha}:any) => {
     await new Promise(resolve => setTimeout(resolve, 1000))
-    if (email.trim() == 'filipecavalcante17@gmail.com' && senha.trim() == '12345678') 
-      setResultado('logou')
-    else
-      setResultado('falhou')
+    if (email.trim() == 'filipecavalcante17@gmail.com' && senha.trim() == '12345678') {
+      setResultado('logou');
+      navigation.navigate('Cadastro');
+    } else {
+      setResultado('falhou');
+    }
   }
 
   return (
@@ -58,13 +66,15 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: 'white',
-    width: '100%',
-    padding: 6,
-    marginVertical: 5,
     borderWidth: 1,
-    borderColor: "grey",
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 16,
+    color: '#153932',
+    borderColor: '#ddd',
+    width: '100%',
+    marginVertical: 5,
     placeholderTextColor: '#153932',
-    borderRadius: 15,
   },
   falha: {
     width: '50%',
@@ -87,14 +97,15 @@ const styles = StyleSheet.create({
     borderRadius: 15
   },
   butEntrar: {
-    width: '50%',
-    padding: 10,
     backgroundColor: '#FFF8DA',
-    alignItems: 'center',
-    borderRadius: 15
+    paddingVertical: 15,
+    borderRadius: 5,
+    width: '90%',
+    marginTop: 10,
   },
   textBut: {
-    fontSize: 15,
     color: '#153932',
+    fontSize: 16,
+    textAlign: 'center',
   }
 });
