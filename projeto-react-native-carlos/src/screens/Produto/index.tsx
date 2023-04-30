@@ -9,7 +9,7 @@ export function Produto(props: produtoProps) {
     <View style={styles.container}>
           <>
             <Image source={require('../../assets/images/bici_ele_model_3.jpg')}/>
-            <Text style={styles.text}>Bicicleta Eletrica Aro 29 Suspensao 29 Shimano Track</Text>
+            <Text style={styles.text}>Bicicleta Eletrica Aro 29 Suspensao Shimano Track</Text>
             <Text style={styles.textValue}>R$: 10.657,00</Text>
             <TextInput placeholderTextColor = "#153932" keyboardType="numeric" style={styles.input}  placeholder='00000-000' />
             <TouchableOpacity style={styles.butComprar} >
