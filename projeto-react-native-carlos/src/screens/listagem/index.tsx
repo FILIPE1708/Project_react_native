@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigations';
 
 export type Produto = {
   id: number;
-  imagem: string;
+  imagem: ImageSourcePropType;
   descricao: string;
   preco: string;
 }
