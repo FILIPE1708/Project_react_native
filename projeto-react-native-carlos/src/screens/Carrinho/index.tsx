@@ -24,7 +24,7 @@ export function Carrinho(props: carrinhoProps) {
         <Image source={props.route.params.imagem} style={styles.imagem} />
         <Text style={styles.descricao}>{props.route.params.descricao}</Text>
         <Text style={styles.preco}>R$: {props.route.params.preco}</Text>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Endereco')}>
           <Text style={styles.buttonText}>Continuar</Text>
         </TouchableOpacity>
       </View>
