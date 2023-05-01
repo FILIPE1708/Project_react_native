@@ -1,18 +1,27 @@
 import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { NavegacaoPrincipalParams } from '../navigations';
 
 
-export interface produtoProps{}
+export interface produtoProps{
+  route: RouteProp<NavegacaoPrincipalParams, "Produto">
+}
 
 export function Produto(props: produtoProps) {
+
+    type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Produto">;
+    const navigation = useNavigation<navProp>();
 
   return (
     <View style={styles.container}>
           <>
-            <Image source={require('../../assets/images/bici_ele_model_3.jpg')}/>
-            <Text style={styles.text}>Bicicleta Eletrica Aro 29 Suspensao Shimano Track</Text>
-            <Text style={styles.textValue}>R$: 10.657,00</Text>
+            <Image source={props.route.params.imagem}/>
+            <Text style={styles.text}>{props.route.params.descricao}</Text>
+            <Text style={styles.textValue}>R$:{props.route.params.preco}</Text>
             <TextInput placeholderTextColor = "#153932" keyboardType="numeric" style={styles.input}  placeholder='00000-000' />
-            <TouchableOpacity style={styles.butComprar} >
+            <TouchableOpacity style={styles.butComprar} onPress={() => navigation.navigate('Carrinho', {imagem: props.route.params.imagem, descricao: props.route.params.descricao, preco: props.route.params.preco})}>
               <Text style={styles.textBut}>Comprar</Text>
             </TouchableOpacity>
            <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
@@ -23,7 +32,7 @@ export function Produto(props: produtoProps) {
               <View style={{flex: 1, height: 1, backgroundColor: '#153932'}} />
             </View>
             <Text style={styles.text}>
-              Sua estrutura é reforçada, com quadro fabricado em alumínio, no tamanho 21 suportando       adultos de até 100kg, possui guidão, canote do selim e pedivela fabricados também em alumínio, e suspensão dianteira complementando a estrutura reforçada do produto.
+              {props.route.params.descDetalhada}
             </Text>
           </>
     </View>
@@ -60,13 +69,14 @@ const styles = StyleSheet.create({
   },
   butComprar: {
     width: '50%',
-    padding: 10,
     backgroundColor: '#153932',
-    alignItems: 'center',
-    borderRadius: 15
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
   },
   textBut: {
-    fontSize: 15,
-    color: 'white',
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
   }
 });

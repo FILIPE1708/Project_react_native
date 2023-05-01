@@ -5,13 +5,15 @@ import { Login } from '../login';
 import { Cadastro } from '../Cadastro';
 import { Lista } from '../listagem';
 import { Produto } from '../Produto';
+import { Carrinho } from '../Carrinho';
 
 export type NavegacaoPrincipalParams = {
     Inicio: undefined,
     Login: undefined,
     Cadastro: undefined,
-    Lista: undefined, 
-    Produto: undefined
+    Lista: undefined,
+    Produto: undefined,
+    Carrinho: undefined
 }
 
 const Stack = createStackNavigator<NavegacaoPrincipalParams>();
@@ -24,6 +26,7 @@ export const NavegacaoPrincipal = () => (
             <Stack.Screen name='Login' component={Login}/>
             <Stack.Screen name='Cadastro' component={Cadastro}/>
             <Stack.Screen name='Produto' component={Produto}/>
+            <Stack.Screen name='Carrinho' component={Carrinho}/>
         </Stack.Navigator>
     </NavigationContainer>
 )
