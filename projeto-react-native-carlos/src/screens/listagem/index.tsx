@@ -65,7 +65,7 @@ export function Lista() {
 
       return (
         <View style={styles.container}>
-          <TouchableOpacity style={styles.butVoltar} onPress={() => console.log('Back button pressed')}>
+          <TouchableOpacity style={styles.butVoltar} onPress={() => navigation.goBack()}>
             <Text style={styles.butVoltarText}>Voltar</Text>
           </TouchableOpacity>
           <FlatList data={produtos} renderItem={({ item }) => (

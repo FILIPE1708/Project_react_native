@@ -29,16 +29,16 @@ const Stack = createStackNavigator<NavegacaoPrincipalParams>();
 export const NavegacaoPrincipal = () => (
     <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name='Promocao' component={Promocao}/>
             <Stack.Screen name='Inicio' component={Inicio}/>
             <Stack.Screen name='Login' component={Login}/>
             <Stack.Screen name='Cadastro' component={Cadastro}/>
+            <Stack.Screen name='Promocao' component={Promocao}/>
+            <Stack.Screen name='Lista' component={Lista}/>
             <Stack.Screen name='Produto' component={Produto}/>
             <Stack.Screen name='Carrinho' component={Carrinho}/>
             <Stack.Screen name='Endereco' component={Endereco}/>
             <Stack.Screen name='Comprar' component={Comprar}/>
             <Stack.Screen name='Pedido' component={Pedido}/>
-            <Stack.Screen name='Lista' component={Lista}/>
         </Stack.Navigator>
     </NavigationContainer>
 )

@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import { useState } from 'react';
-import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Vibration } from 'react-native';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,8 +18,8 @@ export function Login(props: loginProps) {
   const handleLogin = async ({email, senha}:any) => {
     await new Promise(resolve => setTimeout(resolve, 1000))
     if (email.trim() == 'filipecavalcante17@gmail.com' && senha.trim() == '12345678') {
-      setResultado('logou');
-      navigation.navigate('Cadastro');
+      Vibration.vibrate(2000);
+      navigation.navigate('Promocao');
     } else {
       setResultado('falhou');
     }

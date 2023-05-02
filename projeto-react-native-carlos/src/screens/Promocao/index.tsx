@@ -1,107 +1,76 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { NavegacaoPrincipalParams } from '../navigations';
 
 export interface promocaoProps{}
 
 export function Promocao(props: promocaoProps){
-    const [images] = useState([
-        require('../../assets/images/logo_3.png'),
-        require('../../assets/images/logo_3.png'),
-        require('../../assets/images/logo_3.png')
-    ]);
+    type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Promocao">;
+    const navigation = useNavigation<navProp>();  
 
     return (
-        <View style={styles.container}>
-          <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-            {images.map((image, index) => (
-              <Image key={index} source={image} style={styles.image} />
-            ))}
-          </ScrollView>
-          <View style={styles.cardsContainer}>
-            <View style={styles.card}>
-              <Image source={require('./assets/product1.jpg')} style={styles.cardImage} />
-              <Text style={styles.price}>R$ 10,00</Text>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Veja mais</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.card}>
-              <Image source={require('./assets/product2.jpg')} style={styles.cardImage} />
-              <Text style={styles.price}>R$ 20,00</Text>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Veja mais</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.card}>
-              <Image source={require('./assets/product3.jpg')} style={styles.cardImage} />
-              <Text style={styles.price}>R$ 30,00</Text>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Veja mais</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.productsButton}>
-            <Text style={styles.productsButtonText}>Produtos</Text>
-          </TouchableOpacity>
+      <View style={styles.container}>
+        <Image source={require('../../assets/images/banner.png')} style={styles.banner} />
+        <View style={styles.card} >
+          <Image source={require('../../assets/images/bici_ele_model_3.jpg')} style={styles.imagem} />
+          <Text style={styles.descricao}>Bicicleta Eletrica Aro 29 Suspensao Shimano Track</Text>
+          <Text style={styles.preco}>R$ 10.657,00</Text>
         </View>
-      );
+        <TouchableOpacity style={styles.butVejaMais} onPress={() => navigation.navigate('Lista')}>
+            <Text style={styles.textBut}>Podutos</Text>
+          </TouchableOpacity>
+      </View>
+    );
 }
 
+
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#153932'
-    },
-    image: {
-      width: '100%',
-      height: 200
-    },
-    cardsContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      marginTop: 10
-    },
-    card: {
-      width: 150,
-      height: 200,
-      backgroundColor: '#FFF',
-      borderRadius: 8,
-      padding: 15
-    },
-    cardImage: {
-      width: '100%',
-      height: 120,
-      resizeMode: 'contain'
-    },
-    price: {
-      fontSize: 16,
-      color: '#153932',
-      fontWeight: 'bold',
-      marginTop: 5
-    },
-    button: {
-      backgroundColor: '#153932',
-      borderRadius: 8,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      marginTop: 10
-    },
-    buttonText: {
-      color: '#FFF',
-      fontSize: 14,
-      fontWeight: 'bold'
-    },
-    productsButton: {
-      backgroundColor: '#FFF',
-      borderRadius: 8,
-      paddingVertical: 10,
-      paddingHorizontal: 12,
-      marginTop: 10,
-      alignSelf: 'center'
-    },
-    productsButtonText: {
-      color: '#153932',
-      fontSize: 14,
-      fontWeight: 'bold'
-    }
-  });
+  container: {
+    flex: 1,
+    backgroundColor: '#153932',
+    marginTop: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  banner: {
+    width: '100%',
+    height: 370,
+  },
+  card: {
+    backgroundColor: '#FFF',
+    marginVertical: 8,
+    padding: 5,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  imagem: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
+  descricao: {
+    fontSize: 16,
+    color: '#333',
+    marginVertical: 8,
+  },
+  preco: {
+    fontSize: 16,
+    color: '#153932',
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  butVejaMais: {
+    width: '50%',
+    backgroundColor: '#FFF',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  textBut: {
+    color: '#153932',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  }
+});
