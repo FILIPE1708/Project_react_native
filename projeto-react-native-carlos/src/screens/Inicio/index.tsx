@@ -14,7 +14,7 @@ export function Inicio(props: inicioProps) {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image source={require('../../assets/images/logo_2.png')}/>
+        <Image source={require('../../assets/images/logo_3.png')} style={{width: 140, height: 140}}/>
       </View>
       <TouchableOpacity onPress={() => navigation.navigate('Cadastro')}>
         <View style={styles.button}>

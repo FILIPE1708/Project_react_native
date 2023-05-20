@@ -1,10 +1,11 @@
 import { Formik } from 'formik';
-import { useState } from 'react';
-import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Vibration } from 'react-native';
+import { useState, useEffect } from 'react';
+import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Vibration, Alert } from 'react-native';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigations';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 export interface loginProps{}
 
@@ -12,18 +13,55 @@ export function Login(props: loginProps) {
 
   type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Login">;
   const navigation = useNavigation<navProp>();
+  const[isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCredentialsEntered, setCredentialsEntered] = useState(false);
 
-  const [ resultado, setResultado ] = useState<null|'logou'|'falhou'>(null);
-  
   const handleLogin = async ({email, senha}:any) => {
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    if (email.trim() == 'filipecavalcante17@gmail.com' && senha.trim() == '12345678') {
-      Vibration.vibrate(2000);
+    // Verificar as credenciais do usuário
+    if (email === 'filipecavalcante17@gmail.com' && senha === '12345678') {
+      setCredentialsEntered(true);
       navigation.navigate('Promocao');
+
     } else {
-      setResultado('falhou');
+      Alert.alert('Erro de login', 'E-mail ou senha incorretos');
+    }
+
+    
+  };
+
+ // async function verifyAvaliabledAthentication() {
+   // const compatible = await LocalAuthentication.hasHardwareAsync();
+    //console.log(compatible);
+
+    //const types = await LocalAuthentication.supportedAuthenticationTypesAsync();
+    //console.log(types.map(type => LocalAuthentication.AuthenticationType[type]));
+  //}
+
+  async function handleAuthentication() {
+    const isBiometricEnrolled = await LocalAuthentication.isEnrolledAsync();
+    
+    if(!isBiometricEnrolled){
+      return Alert.alert('Login:', 'Nenhuma biometria foi cadastrada nesse dispositivo, Cadastre para continuar.');
+    }
+
+    if(isCredentialsEntered === true){
+      const auth = await LocalAuthentication.authenticateAsync({
+        promptMessage: 'Pressione o sensor para continuar',
+        fallbackLabel: 'Biometria não reconhecida'
+      });
+
+      if(auth.success){
+        navigation.navigate('Promocao');
+      }
+    }else{
+      return Alert.alert('Error:', 'Realize o login com seu e-mail e senha pelo menos uma vez.');
     }
   }
+
+  //useEffect(() => {
+    //verifyAvaliabledAthentication();
+  //});
+
 
   return (
     <View style={styles.container}>
@@ -46,9 +84,9 @@ export function Login(props: loginProps) {
             <TouchableOpacity style={styles.butEntrar} onPress={() => handleSubmit()} >
               <Text style={styles.textBut}>Entrar</Text>
             </TouchableOpacity>
-
-            { resultado == 'logou' && <Text style={styles.sucesso}>Logado com sucesso</Text>}
-            { resultado == 'falhou' && <Text style={styles.falha}>Email ou senha incorreto</Text>}
+            <TouchableOpacity style={styles.butEntrar} onPress={() => handleAuthentication()} >
+              <Text style={styles.textBut}>Entrar com Biometria</Text>
+            </TouchableOpacity>
           </>
         )}
       </Formik>
