@@ -1,24 +1,37 @@
 import { Formik } from 'formik';
 import { useState } from 'react';
-import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Alert } from 'react-native';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigations';
+import { getAuth, createUserWithEmailAndPassword } from '@firebase/auth';
+import { getFirestore, setDoc, doc } from '@firebase/firestore';
 
 export interface cadastroProps{}
 
 export function Cadastro(props: cadastroProps) {
+  const auth = getAuth();
+  const db = getFirestore();
+
   type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Cadastro">;
   const navigation = useNavigation<navProp>();
 
   const [ resultado, setResultado ] = useState<null|'cadastrou'|'falhou'>(null);
   
-  const handlecadastro = async ({senha, confirmaSenha}:any) => {
+  const handlecadastro = async ({email, senha, confirmaSenha, nome, cpf}:any) => {
     await new Promise(resolve => setTimeout(resolve, 1000))
     if (confirmaSenha.trim() != senha.trim()) 
       setResultado('falhou')
     else
+      await createUserWithEmailAndPassword(auth, email, senha)
+            .then((usuario) => {
+
+                setDoc(doc(db, 'usuarios', usuario.user.uid), {
+                  email, senha, nome, cpf
+                })
+            })
+            .catch(erro => Alert.alert('Erro', 'Não foi possivel criar o usuário, tente novamente'))
       setResultado('cadastrou')
   }
 
@@ -41,14 +54,19 @@ export function Cadastro(props: cadastroProps) {
           <Image source={require('../../assets/images/logo.png')}/>
             <TextInput placeholderTextColor = "#153932"  placeholder='Digite o seu e-mail' onBlur={handleBlur('email')} style={styles.input} onChangeText={handleChange('email')}/>
             { errors.email && touched.email && <Text style={styles.falha}>{errors.email}</Text>}
+
             <TextInput placeholderTextColor = "#153932"  placeholder='Digite a sua senha' onBlur={handleBlur('senha')} style={styles.input} onChangeText={handleChange('senha')} secureTextEntry/>
             { errors.senha && touched.senha && <Text style={styles.falha}>{errors.senha}</Text>}
+
             <TextInput placeholderTextColor = "#153932"  placeholder='Confirme a sua senha' onBlur={handleBlur('confirmaSenha')} style={styles.input} onChangeText={handleChange('confirmaSenha')} secureTextEntry/>
             { errors.confirmaSenha && touched.confirmaSenha && <Text style={styles.falha}>{errors.confirmaSenha}</Text>}
+
             <TextInput placeholderTextColor = "#153932"  placeholder='Digite o seu nome completo' onBlur={handleBlur('nome')} style={styles.input} onChangeText={handleChange('nome')}/>
             { errors.nome && touched.nome && <Text style={styles.falha}>{errors.nome}</Text>}
+
             <TextInput placeholderTextColor = "#153932"  placeholder='Digite o seu cpf' onBlur={handleBlur('cpf')} style={styles.input} onChangeText={handleChange('cpf')}/>
             { errors.cpf && touched.cpf && <Text style={styles.falha}>{errors.cpf}</Text>}
+            
             <TouchableOpacity style={styles.butCadastrar} onPress={() => handleSubmit()} >
               <Text style={styles.textBut}>Cadastrar</Text>
             </TouchableOpacity>
