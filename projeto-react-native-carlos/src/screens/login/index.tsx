@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavegacaoPrincipalParams } from '../navigations';
 import * as LocalAuthentication from 'expo-local-authentication';
+import { getAuth, signInWithEmailAndPassword } from '@firebase/auth';
 
 export interface loginProps{}
 
@@ -15,18 +16,16 @@ export function Login(props: loginProps) {
   const navigation = useNavigation<navProp>();
   const[isAuthenticated, setIsAuthenticated] = useState(false);
   const [isCredentialsEntered, setCredentialsEntered] = useState(false);
+  const auth = getAuth();
 
   const handleLogin = async ({email, senha}:any) => {
     // Verificar as credenciais do usuário
-    if (email === 'filipecavalcante17@gmail.com' && senha === '12345678') {
+    await signInWithEmailAndPassword(auth, email, senha)
+    .then((usuario) => {
       setCredentialsEntered(true);
       navigation.navigate('Promocao');
-
-    } else {
-      Alert.alert('Erro de login', 'E-mail ou senha incorretos');
-    }
-
-    
+      return usuario;
+    }).catch(erro => Alert.alert('Erro', 'Login ou senha incorreta!'));
   };
 
  // async function verifyAvaliabledAthentication() {
@@ -70,7 +69,7 @@ export function Login(props: loginProps) {
 
         validationSchema={Yup.object().shape({
           email: Yup.string().required('Informe o email').email('E-mail inválido'),
-          senha: Yup.string().required('Informe a senha').min(8, 'A senha precisa ter 8 caracteres')
+          senha: Yup.string().required('Informe a senha')
         })}
 
         onSubmit={handleLogin}>
