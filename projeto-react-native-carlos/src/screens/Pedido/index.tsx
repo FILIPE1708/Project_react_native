@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
 
 export interface pedidoProps{}
 
 export function Pedido(props: pedidoProps){
-    type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Pedido">;
+    type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Pedido">;
     const navigation = useNavigation<navProp>();
 
     const [purchaseComplete, setPurchaseComplete] = useState(false);

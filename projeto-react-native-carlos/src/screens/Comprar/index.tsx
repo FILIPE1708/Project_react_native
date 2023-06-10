@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Button,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
 
 export interface comprarProps{}
 
 export function Comprar(props: comprarProps){
-    type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Comprar">;
+    type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Comprar">;
     const navigation = useNavigation<navProp>();
 
     return (

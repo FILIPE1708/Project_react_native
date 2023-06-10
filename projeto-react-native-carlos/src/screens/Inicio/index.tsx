@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
 
 export interface inicioProps{}
 
 export function Inicio(props: inicioProps) {
 
-  type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Inicio">;
+  type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Inicio">;
   const navigation = useNavigation<navProp>();
 
   return (

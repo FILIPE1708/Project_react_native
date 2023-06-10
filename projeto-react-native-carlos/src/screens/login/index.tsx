@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Vibration, Alert } from 'react-native';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { getAuth, signInWithEmailAndPassword } from '@firebase/auth';
@@ -12,7 +12,7 @@ export interface loginProps{}
 
 export function Login(props: loginProps) {
 
-  type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Login">;
+  type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Login">;
   const navigation = useNavigation<navProp>();
   const[isAuthenticated, setIsAuthenticated] = useState(false);
   const [isCredentialsEntered, setCredentialsEntered] = useState(false);

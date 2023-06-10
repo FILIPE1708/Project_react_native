@@ -3,7 +3,7 @@ import { useState } from 'react';
 import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Alert } from 'react-native';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
 import { getAuth, createUserWithEmailAndPassword } from '@firebase/auth';
 import { getFirestore, setDoc, doc } from '@firebase/firestore';
@@ -14,7 +14,7 @@ export function Cadastro(props: cadastroProps) {
   const auth = getAuth();
   const db = getFirestore();
 
-  type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Cadastro">;
+  type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Cadastro">;
   const navigation = useNavigation<navProp>();
 
   const [ resultado, setResultado ] = useState<null|'cadastrou'|'falhou'>(null);
@@ -30,9 +30,10 @@ export function Cadastro(props: cadastroProps) {
                 setDoc(doc(db, 'usuarios', usuario.user.uid), {
                   email, senha, nome, cpf
                 })
+                setResultado('cadastrou')
+                navigation.navigate('Login')
             })
             .catch(erro => Alert.alert('Erro', 'Não foi possivel criar o usuário, tente novamente'))
-      setResultado('cadastrou')
   }
 
   return (

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
 
 export interface promocaoProps{}
 
 export function Promocao(props: promocaoProps){
-    type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Promocao">;
+    type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Promocao">;
     const navigation = useNavigation<navProp>();  
 
     return (

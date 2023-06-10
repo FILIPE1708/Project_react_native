@@ -2,13 +2,13 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import {StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
 
 export interface enderecoProps{}
 
 export function Endereco(props: enderecoProps) {
-  type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Endereco">;
+  type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Endereco">;
   const navigation = useNavigation<navProp>();
   
 

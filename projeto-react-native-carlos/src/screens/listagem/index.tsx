@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
+import { Entypo  } from '@expo/vector-icons';
 
 export type Produto = {
   id: number;
@@ -13,7 +14,7 @@ export type Produto = {
 }
 
 export function Lista() {
-    type navProp = StackNavigationProp<NavegacaoPrincipalParams, "Lista">;
+    type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Lista">;
     const navigation = useNavigation<navProp>();
 
 
@@ -65,8 +66,8 @@ export function Lista() {
 
       return (
         <View style={styles.container}>
-          <TouchableOpacity style={styles.butVoltar} onPress={() => navigation.goBack()}>
-            <Text style={styles.butVoltarText}>Voltar</Text>
+          <TouchableOpacity style={styles.butVoltar} onPress={() => navigation.navigate('Promocao')}>
+            <Text style={styles.butVoltarText}><Entypo name="arrow-with-circle-left" size={24} color="black" /></Text>
           </TouchableOpacity>
           <FlatList data={produtos} renderItem={({ item }) => (
               <View style={styles.card}>
@@ -90,19 +91,21 @@ const styles = StyleSheet.create({
     marginTop: 28,
     paddingTop: 16,
     paddingHorizontal: 16,
+    paddingBottom: 80
   },
   butVoltar: {
     backgroundColor: '#FFF',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
-    width: 64,
-    height: 42,
+    width: 45,
+    height: 45,
   },
   butVoltarText: {
     fontSize: 16,
     color: '#153932',
     fontWeight: 'bold',
+    textAlign: 'center'
   },
   card: {
     backgroundColor: '#FFF',
