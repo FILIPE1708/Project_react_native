@@ -1,30 +1,64 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { NavegacaoPrincipalParams } from '../navigations';
 
-export interface promocaoProps{}
+export interface promocaoProps {}
 
-export function Promocao(props: promocaoProps){
-    type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, "Promocao">;
-    const navigation = useNavigation<navProp>();  
+export function Promocao(props: promocaoProps) {
+  type navProp = BottomTabNavigationProp<NavegacaoPrincipalParams, 'Promocao'>;
+  const navigation = useNavigation<navProp>();
 
-    return (
-      <View style={styles.container}>
-        <Image source={require('../../assets/images/banner.png')} style={styles.banner} />
-        <View style={styles.card} >
-          <Image source={require('../../assets/images/bici_ele_model_3.jpg')} style={styles.imagem} />
-          <Text style={styles.descricao}>Bicicleta Eletrica Aro 29 Suspensao Shimano Track</Text>
-          <Text style={styles.preco}>R$ 10.657,00</Text>
-        </View>
-        <TouchableOpacity style={styles.butVejaMais} onPress={() => navigation.navigate('Lista')}>
-            <Text style={styles.textBut}>Podutos</Text>
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const images = [
+    require('../../assets/images/banner.png'),
+    require('../../assets/images/banner(2).png'),
+    require('../../assets/images/banner(3).png'),
+  ];
+
+  const handleScroll = (event: any) => {
+    const contentOffsetX = event.nativeEvent.contentOffset.x;
+    const index = Math.round(contentOffsetX / 300);
+    setCurrentIndex(index);
+  };
+
+  return (
+    <View style={styles.container}>
+      <ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScroll}
+        style={styles.sliderContainer}
+      >
+        {images.map((image, index) => (
+          <TouchableOpacity
+            key={index}
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('Lista')}
+          >
+            <Image source={image} style={styles.image} />
           </TouchableOpacity>
+        ))}
+      </ScrollView>
+      <View style={styles.pagination}>
+        {images.map((_, index) => (
+          <View
+            key={index}
+            style={[styles.dot, index === currentIndex ? styles.activeDot : null]}
+          />
+        ))}
       </View>
-    );
+      <View style={styles.card}>
+        <Image source={require('../../assets/images/bici_ele_model_3.jpg')} style={styles.imagem} />
+        <Text style={styles.descricao}>Bicicleta Eletrica Aro 29 Suspensao Shimano Track</Text>
+        <Text style={styles.preco}>R$ 10.657,00</Text>
+      </View>
+    </View>
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -33,10 +67,31 @@ const styles = StyleSheet.create({
     marginTop: 28,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 100
   },
-  banner: {
+  sliderContainer: {
+    height: 200,
     width: '100%',
-    height: 370,
+  },
+  image: {
+    width: 360,
+    height: 300,
+    resizeMode: 'cover',
+  },
+  pagination: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 8,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#FFF',
+    marginHorizontal: 4,
+  },
+  activeDot: {
+    backgroundColor: '#FFC107',
   },
   card: {
     backgroundColor: '#FFF',
@@ -46,8 +101,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imagem: {
-    width: 200,
-    height: 200,
+    width: 330,
+    height: 270,
     resizeMode: 'contain',
   },
   descricao: {
@@ -61,16 +116,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
   },
-  butVejaMais: {
-    width: '50%',
-    backgroundColor: '#FFF',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  textBut: {
-    color: '#153932',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  }
 });

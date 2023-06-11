@@ -10,6 +10,7 @@ import { Endereco } from '../Endereco';
 import { Comprar } from '../Comprar';
 import { Pedido } from '../Pedido';
 import { Promocao } from '../Promocao';
+import {Usuario} from '../Usuario';
 import { Entypo  } from '@expo/vector-icons';
 
 export type NavegacaoPrincipalParams = {
@@ -22,7 +23,8 @@ export type NavegacaoPrincipalParams = {
     Endereco: undefined,
     Comprar: undefined,
     Pedido: undefined,
-    Promocao: undefined
+    Promocao: undefined,
+    Usuario: undefined
 }
 
 const Tab = createBottomTabNavigator<NavegacaoPrincipalParams>();
@@ -35,6 +37,7 @@ export const NavegacaoPrincipal = () => (
             <Tab.Screen name='Cadastro' component={Cadastro} options={{tabBarStyle: { display: 'none' }, tabBarButton: () => null}}/>
             <Tab.Screen name='Promocao' component={Promocao} options={{tabBarLabel: 'Home', tabBarIcon: ({color, size}) => {return <Entypo name="home" size={size} color={color} />;}}}/>
             <Tab.Screen name='Lista' component={Lista} options={{tabBarLabel: 'Produtos', tabBarIcon: ({color, size}) => {return <Entypo name="archive" size={size} color={color} />;}}}/>
+            <Tab.Screen name='Usuario' component={Usuario} options={{tabBarLabel: 'Perfil', tabBarIcon: ({color, size}) => {return <Entypo name="user" size={size} color={color} />;}}}/>
             <Tab.Screen name='Produto' component={Produto} options={{tabBarButton: () => null}}/>
             <Tab.Screen name='Carrinho' component={Carrinho} options={{tabBarButton: () => null}}/>
             <Tab.Screen name='Endereco' component={Endereco} options={{tabBarButton: () => null}}/>
