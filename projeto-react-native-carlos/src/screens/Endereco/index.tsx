@@ -17,7 +17,7 @@ export function Endereco(props: enderecoProps) {
       <Formik
         initialValues={{cep: '', logradouro: '', numero: '', complemento: ''}}
 
-        onSubmit={() => navigation.navigate('Comprar')}>
+        onSubmit={() => navigation.navigate('Pagamento')}>
         {({handleSubmit}) => (
           <>
           <Image source={require('../../assets/images/logo.png')}/>

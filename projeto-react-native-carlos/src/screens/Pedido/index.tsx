@@ -18,6 +18,9 @@ export function Pedido(props: pedidoProps){
           {purchaseComplete ? (
             <View style={styles.successContainer}>
               <Text style={styles.successText}>Compra efetuada com sucesso!</Text>
+              <TouchableOpacity style={styles.butConfirma} onPress={() => navigation.navigate('Promocao')}>
+                <Text style={styles.textConfirma}>Voltar Para o Início</Text>
+              </TouchableOpacity>
             </View>
           ) : (
             <View style={styles.formContainer}>

@@ -51,11 +51,13 @@ export function Promocao(props: promocaoProps) {
           />
         ))}
       </View>
-      <View style={styles.card}>
-        <Image source={require('../../assets/images/bici_ele_model_3.jpg')} style={styles.imagem} />
-        <Text style={styles.descricao}>Bicicleta Eletrica Aro 29 Suspensao Shimano Track</Text>
-        <Text style={styles.preco}>R$ 10.657,00</Text>
-      </View>
+      <TouchableOpacity onPress={() => navigation.navigate('Produto', {imagem: require('../../assets/images/bici_ele_model_3.jpg'), descricao: 'Bicicleta Eletrica Aro 29 Suspensao Shimano Track', preco: '10.657,00', descDetalhada: 'Sua estrutura é reforçada, com quadro fabricado em alumínio, no tamanho 21 suportando adultos de até 100kg, possui guidão, canote do selim e pedivela fabricados também em alumínio, e suspensão dianteira complementando a estrutura reforçada do produto.'})}>
+        <View style={styles.card} >
+          <Image source={require('../../assets/images/bici_ele_model_3.jpg')} style={styles.imagem} />
+          <Text style={styles.descricao}>Bicicleta Eletrica Aro 29 Suspensao Shimano Track</Text>
+          <Text style={styles.preco}>R$ 10.657,00</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
